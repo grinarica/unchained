@@ -1,65 +1,100 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://unistyl.es/), etc.
- */
+/** Colour tokens. Every theme must define the same keys (enforced by `ThemeColors`). */
+export interface ThemeColors {
+    background: string;
+    surface: string;
+    surfaceAlt: string;
+    /** Barely-there fill for secondary tiles that shouldn't draw attention. */
+    surfaceSubtle: string;
+    surfaceRaised: string;
+    surfaceSelected: string;
+    surfaceAddButton: string;
+    border: string;
 
-import '@/global.css';
+    accent: string;
+    /** Text/icon colour used on top of `accent` (buttons). */
+    onAccent: string;
+    accentWatermark: string;
+    brandGold: string;
+    brandGoldDark: string;
 
-import { Platform } from 'react-native';
+    textPrimary: string;
+    textDisplay: string;
+    textHeading: string;
+    textTimeValue: string;
+    textInfo: string;
+    textMuted: string;
+    textSubtle: string;
+    textDim: string;
+    textTagline: string;
 
-export const Colors = {
-  light: {
-    text: '#000000',
-    background: '#ffffff',
-    backgroundElement: '#F0F0F3',
-    backgroundSelected: '#E0E1E6',
-    textSecondary: '#60646C',
-  },
-  dark: {
-    text: '#ffffff',
-    background: '#000000',
-    backgroundElement: '#212225',
-    backgroundSelected: '#2E3135',
-    textSecondary: '#B0B4BA',
-  },
-} as const;
+    dangerBorder: string;
+    dangerText: string;
 
-export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
+    overlay: string;
+}
 
-export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
-  },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
-  },
-  web: {
-    sans: 'var(--font-display)',
-    serif: 'var(--font-serif)',
-    rounded: 'var(--font-rounded)',
-    mono: 'var(--font-mono)',
-  },
-});
+/** The original look of the app. */
+export const darkColors: ThemeColors = {
+    background: "#0b131a",
+    surface: "#101e2a",
+    surfaceAlt: "#17232e",
+    surfaceSubtle: "#0f1a24",
+    surfaceRaised: "#172736",
+    surfaceSelected: "#1d3244",
+    surfaceAddButton: "#152533",
+    border: "#1d2f3e",
 
-export const Spacing = {
-  half: 2,
-  one: 4,
-  two: 8,
-  three: 16,
-  four: 24,
-  five: 32,
-  six: 64,
-} as const;
+    accent: "#ebb758",
+    onAccent: "#101e2a",
+    accentWatermark: "#d6a853",
+    brandGold: "#dbb558",
+    brandGoldDark: "#ad7d23",
 
-export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
-export const MaxContentWidth = 800;
+    textPrimary: "#f4f0e4",
+    textDisplay: "#f5f2e9",
+    textHeading: "#e5edd1",
+    textTimeValue: "#d5d2c8",
+    textInfo: "#8cb4dc",
+    textMuted: "#84929f",
+    textSubtle: "#728191",
+    textDim: "#385f87",
+    textTagline: "#808080",
+
+    dangerBorder: "#ebb758",
+    dangerText: "#ebb758",
+
+    overlay: "rgba(0,0,0,0.65)",
+};
+
+/** Warm, paper-like light theme with the same gold accent. */
+export const lightColors: ThemeColors = {
+    background: "#f6f2e8",
+    surface: "#ffffff",
+    surfaceAlt: "#f0ebdd",
+    surfaceSubtle: "#efe9da",
+    surfaceRaised: "#f3efe4",
+    surfaceSelected: "#fbefd2",
+    surfaceAddButton: "#ebe5d4",
+    border: "#ddd5c0",
+
+    accent: "#e0a52e",
+    onAccent: "#ffffff",
+    accentWatermark: "#d6a853",
+    brandGold: "#8f6a12",
+    brandGoldDark: "#8a5f0f",
+
+    textPrimary: "#1c2733",
+    textDisplay: "#14202b",
+    textHeading: "#1d2b22",
+    textTimeValue: "#2b3640",
+    textInfo: "#2f6aa3",
+    textMuted: "#5c6b78",
+    textSubtle: "#5f6e7c",
+    textDim: "#4a6f95",
+    textTagline: "#6b6b6b",
+
+    dangerBorder: "#e0a52e",
+    dangerText: "#e0a52e",
+
+    overlay: "rgba(0,0,0,0.45)",
+};
