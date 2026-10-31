@@ -1,56 +1,105 @@
-# Welcome to your Expo app 👋
+<p align="center">
+  <img src="promo.jpg" alt="Unchained" width="100%" />
+</p>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# Unchained
 
-## Get started
+**Every second counts.** Unchained is a private, offline streak counter for the habits you're leaving behind. Pick a habit, set the moment you stopped, and watch a live counter of days, hours, minutes and seconds tick up.
 
-1. Install dependencies
+Built with React Native and Expo for Android.
 
-   ```bash
-   npm install
-   ```
+<p align="center">
+  <a href="https://github.com/grinarica/unchained/releases/latest"><b>Download the latest APK</b></a>
+</p>
 
-2. Start the app
+## Download
 
-   ```bash
-   npx expo start
-   ```
+1. Open the [latest release](https://github.com/grinarica/unchained/releases/latest) and download the `.apk` file.
+2. Open it on your Android phone. If asked, allow installs from your browser or file manager.
+3. Requires Android 7.0 or newer.
 
-In the output, you'll find options to open the app in a
+This is a direct APK install, not a Play Store release.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Features
 
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- **Live counters** for smoking, drinking and porn, showing days, hours, minutes and seconds since your start moment
+- **Future start dates**: schedule a start and the card reads "Starting" until it begins
+- **Reset with confirmation** if you relapse, and **remove a card** you no longer want on the home screen
+- **Custom wheel pickers** for date and time, built from scratch instead of the stock Android dialogs
+- **Light, dark or system theme**, chosen from the home screen and remembered between launches
+- **Private by design**: everything is stored in a local SQLite database on your phone. There are no accounts, no servers and no network requests.
 
-## Get a fresh project
+## Tech stack
 
-When you're ready, run:
+| | |
+|---|---|
+| Framework | [Expo](https://expo.dev) (SDK 58) with React Native |
+| Navigation | Expo Router (file-based routing) |
+| Language | TypeScript |
+| Storage | `expo-sqlite` |
+| Tooling | React Compiler, Bun |
+
+## Run it locally
+
+You need [Bun](https://bun.sh) (or Node.js) and an Android phone or emulator.
 
 ```bash
-npm run reset-project
+git clone https://github.com/grinarica/unchained.git
+cd unchained
+bun install
+bun run start
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+Scan the QR code with Expo Go to run it on your phone.
 
-### Other setup steps
+> Expo Go always shows its own icon and splash screen. To see Unchained's real icon, name and splash, install a build (see below).
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+## Build an APK
 
-## Learn more
+**Cloud build with EAS** (no Android SDK needed):
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+bunx eas-cli login
+bunx eas-cli build --platform android --profile preview
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+The `preview` profile produces an installable `.apk`. It needs this in `eas.json`:
 
-## Join the community
+```json
+"preview": {
+  "distribution": "internal",
+  "android": { "buildType": "apk" }
+}
+```
 
-Join our community of developers creating universal apps.
+**Local build** (needs JDK 17 and the Android SDK, with `ANDROID_HOME` set):
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+bunx expo prebuild --platform android
+cd android
+./gradlew assembleRelease
+```
+
+The APK is written to `android/app/build/outputs/apk/release/app-release.apk`.
+
+## Project structure
+
+```
+src/
+  app/           Screens and routes (home, habit/[type], add-habit)
+  components/    HabitCard, ConfirmModal, theme and date/time pickers
+  constants/     Habit definitions and colour themes
+  hooks/         useElapsedTime, useThemeColors, useThemePreference
+  libs/          SQLite database layer and theme storage
+  utils/         Date and time helpers
+assets/images/   App icon, adaptive icon and splash image
+promo.jpg        Banner image used in this README
+```
+
+## Privacy
+
+Your data never leaves your device. Habit start times are kept in a local SQLite database, and the theme choice in local key-value storage. Uninstalling the app deletes everything.
+
+## License
+
+Released under the MIT License. See [LICENSE](LICENSE).
