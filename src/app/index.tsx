@@ -61,7 +61,7 @@ export default function HomeScreen() {
 
                     <Text style={styles.appName}>UNCHAINED</Text>
                     <Text style={styles.heroTitle}>Every Second Counts.</Text>
-                    <Text style={styles.heroSubtitle}>Live counters for the thing you left behind</Text>
+                    <Text style={styles.heroSubtitle}>Live counters for everything you left behind</Text>
 
                     {hasLoadError && (
                         <Text style={styles.errorText}>Couldn't load your trackers. Please restart the app.</Text>
